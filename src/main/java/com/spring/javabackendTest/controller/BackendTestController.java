@@ -1,6 +1,7 @@
 package com.spring.javabackendTest.controller;
 
 import com.spring.javabackendTest.model.HooverRequest;
+import com.spring.javabackendTest.model.HooverResponse;
 import com.spring.javabackendTest.service.BackendTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Created by andrzej on 21.08.17.
@@ -44,11 +43,11 @@ public class BackendTestController {
 	}
 
 	@RequestMapping(value = "hoover/launch", method = RequestMethod.POST)
-	public List<Integer> launchApp(@RequestBody HooverRequest hooverRequest) {
+	public HooverResponse launchApp(@RequestBody HooverRequest hooverRequest) {
 
-		backendTestService.move(hooverRequest);
+		HooverResponse move = backendTestService.move(hooverRequest);
 
-		return hooverRequest.getCoords();
+		return move;
 	}
 
 

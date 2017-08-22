@@ -1,15 +1,11 @@
 package com.spring.javabackendTest.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.javabackendTest.controller.BackendTestController;
+import com.spring.javabackendTest.model.HooverMovingService;
 import com.spring.javabackendTest.model.HooverRequest;
-import org.springframework.context.annotation.Bean;
+import com.spring.javabackendTest.model.HooverResponse;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
-import java.util.*;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by andrzej on 21.08.17.
@@ -18,14 +14,10 @@ import java.util.stream.Stream;
 @Service
 public class BackendTestService {
 
-	private HooverRequest hooverRequest;
-
-	private MovingController movingController = new MovingController();
-
+	private HooverMovingService hooverMoving = new HooverMovingService();
 
 
 	public BackendTestService() {
-
 
 	}
 
@@ -34,21 +26,17 @@ public class BackendTestService {
 	}
 
 
-	public void move(HooverRequest hooverRequest) {
+	public HooverResponse move(HooverRequest hooverRequest) {
 
 		List<Integer> coords = hooverRequest.getCoords();
+
 		String instructions = hooverRequest.getInstructions();
+		List<List<Integer>> patches = hooverRequest.getPatches();
 
 		String[] split = instructions.split("");
-		movingController.getInputList(coords);
-		iterateThroughSplitedString(split);
+		HooverResponse hooverResponse = hooverMoving.iterateThroughSplitedStringAndMove(split, coords, patches);
 
-	}
-
-
-	private void setNewCoords(List<Integer> list) {
-
-
+		return hooverResponse;
 	}
 
 

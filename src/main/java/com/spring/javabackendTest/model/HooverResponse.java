@@ -9,13 +9,22 @@ public class HooverResponse {
 
 
 	private List<Integer> coords;
-	private List<List<Integer>> patches;
+	private int patches;
 
 	public HooverResponse() {
 	}
 
-	public HooverResponse(List<Integer> coords, List<List<Integer>> patches) {
+	public HooverResponse(List<Integer> coords, int numberOfCleanedPatches) {
 		this.coords = coords;
+
+		this.patches = numberOfCleanedPatches;
+	}
+
+	public int getPatches() {
+		return patches;
+	}
+
+	public void setPatches(int patches) {
 		this.patches = patches;
 	}
 
@@ -27,11 +36,4 @@ public class HooverResponse {
 		this.coords = coords;
 	}
 
-	public List<List<Integer>> getPatches() {
-		return patches;
-	}
-
-	public void setPatches(List<List<Integer>> patches) {
-		this.patches = patches;
-	}
 }
