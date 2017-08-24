@@ -12,12 +12,12 @@ import java.util.List;
  */
 
 @Service
-public class BackendTestService {
+public class HooverService {
 
 	private HooverMovingService hooverMoving = new HooverMovingService();
 
 
-	public BackendTestService() {
+	public HooverService() {
 
 	}
 
@@ -33,10 +33,19 @@ public class BackendTestService {
 		String instructions = hooverRequest.getInstructions();
 		List<List<Integer>> patches = hooverRequest.getPatches();
 
-		String[] split = instructions.split("");
+		String withoutWhiteSpaces = prepareCorrectString(instructions);
+
+		String[] split = withoutWhiteSpaces.split("");
 		HooverResponse hooverResponse = hooverMoving.iterateThroughSplitedStringAndMove(split, coords, patches);
 
 		return hooverResponse;
+	}
+
+	public String prepareCorrectString(String instructions) {
+		String withoutWhiteSpaces = instructions.replaceAll("\\s", "").toUpperCase();
+		String s = withoutWhiteSpaces.replaceAll("[*0-9]", "");
+
+		return s;
 	}
 
 

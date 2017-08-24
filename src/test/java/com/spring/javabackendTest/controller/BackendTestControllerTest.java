@@ -3,19 +3,16 @@ package com.spring.javabackendTest.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.javabackendTest.model.HooverRequest;
 import com.spring.javabackendTest.model.HooverResponse;
-import com.spring.javabackendTest.service.BackendTestService;
+import com.spring.javabackendTest.service.HooverService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -24,17 +21,17 @@ import static org.mockito.MockitoAnnotations.initMocks;
  */
 public class BackendTestControllerTest {
 
-	private BackendTestController backendTestController;
+	private HooverController backendTestController;
 	private ObjectMapper objectMapper;
 
 	@Mock
-	private BackendTestService backendTestService;
+	private HooverService backendTestService;
 
 
 	@Before
 	public void setUp() {
 		initMocks(this);
-		backendTestController = new BackendTestController(backendTestService);
+		backendTestController = new HooverController(backendTestService);
 		objectMapper = new ObjectMapper();
 	}
 
@@ -45,6 +42,8 @@ public class BackendTestControllerTest {
 		HooverResponse hooverResponse = getDefaultHooverResponse();
 
 		when(backendTestService.move(hooverRequest)).thenReturn(hooverResponse);
+
+
 	}
 
 
@@ -58,7 +57,7 @@ public class BackendTestControllerTest {
 
 	private HooverRequest getDefaultHooverRequest() throws IOException {
 
-		String requestAsJson = readAsString("src/main/resources/input.json");
+		String requestAsJson = readAsString("src/main/resources/inputSeparatedString.json");
 
 		HooverRequest hooverRequest = objectMapper.readValue(requestAsJson, HooverRequest.class);
 		return hooverRequest;
